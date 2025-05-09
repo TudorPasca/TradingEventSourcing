@@ -1,10 +1,10 @@
 #pragma once
 
 #include "../order/Order.h"
-#include "Command.h"
+#include "ICommand.h"
 #include <string>
 
-class PlaceOrderCommand: public Command {
+class PlaceOrderCommand: public ICommand {
 public:
     PlaceOrderCommand(int user_id, Order::OrderType type, std::string symbol, int quantity);
 private:

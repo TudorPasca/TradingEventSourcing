@@ -5,11 +5,11 @@
 #include <string>
 #include <chrono>
 
-struct DomainEvent {
-    explicit DomainEvent(std::string event_id);
-    explicit DomainEvent(const nlohmann::json &j);
+struct IDomainEvent {
+    explicit IDomainEvent(std::string event_id);
+    explicit IDomainEvent(const nlohmann::json &j);
 
-    virtual ~DomainEvent() = default;
+    virtual ~IDomainEvent() = default;
 
     virtual std::string toJson() const = 0;
     long long getNanosecondsTimestamp() const;

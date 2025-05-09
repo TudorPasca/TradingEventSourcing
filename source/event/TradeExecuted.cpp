@@ -1,11 +1,11 @@
 #include "../../include/event/TradeExecuted.h"
 
 TradeExecuted::TradeExecuted(std::string event_id, int buyer_id, int seller_id, std::string symbol, int quantity)
-        : DomainEvent(std::move(event_id)), buyer_id_(buyer_id), seller_id_(seller_id), symbol_(std::move(symbol)),
+        : IDomainEvent(std::move(event_id)), buyer_id_(buyer_id), seller_id_(seller_id), symbol_(std::move(symbol)),
           quantity_(quantity) {}
 
 TradeExecuted::TradeExecuted(const std::string &json_string)
-        : DomainEvent(nlohmann::json::parse(json_string)) {
+        : IDomainEvent(nlohmann::json::parse(json_string)) {
     using json = nlohmann::json;
     try {
         json j = json::parse(json_string);

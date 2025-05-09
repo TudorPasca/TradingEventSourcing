@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Command.h"
+#include "ICommand.h"
 
-class WithdrawFundsCommand: public Command {
+class WithdrawFundsCommand: public ICommand {
 public:
     WithdrawFundsCommand(int user_id, int quantity);
 private:

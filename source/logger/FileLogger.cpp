@@ -19,12 +19,12 @@ void FileLogger::append(const std::string &message) {
         out_fs_ << message << std::endl;
 }
 
-void FileLogger::append(const DomainEvent &event) {
+void FileLogger::append(const IDomainEvent &event) {
     if (out_fs_.is_open())
         out_fs_ << event.toJson() << std::endl;
 }
 
-void FileLogger::append(const DomainEvent *event) {
+void FileLogger::append(const IDomainEvent *event) {
     if (event != nullptr && out_fs_.is_open())
         out_fs_ << event->toJson() << std::endl;
 }
@@ -43,8 +43,8 @@ std::string FileLogger::getEventTypeFromJson(const std::string &json_str) {
     return json_str.substr(valueStartPos, valueEndPos - valueStartPos);
 }
 
-std::vector<std::unique_ptr<DomainEvent>> FileLogger::getAllEvents() {
-    std::vector<std::unique_ptr<DomainEvent>> events;
+std::vector<std::unique_ptr<IDomainEvent>> FileLogger::getAllEvents() {
+    std::vector<std::unique_ptr<IDomainEvent>> events;
     in_fs_.open(filename_);
     if (!in_fs_.is_open()) {
         throw std::runtime_error("[FileLogger] Failed to open log file for READING: " + filename_);

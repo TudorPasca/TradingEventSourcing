@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../event/DomainEvent.h"
+#include "../event/IDomainEvent.h"
 #include <string>
 #include <memory>
 
 struct ILogger {
   virtual ~ILogger() = default;
   virtual void append(const std::string& message) = 0;
-  virtual void append(const DomainEvent& event) = 0;
-  virtual void append(const DomainEvent *event) = 0;
-  virtual std::vector<std::unique_ptr<DomainEvent>> getAllEvents() = 0;
+  virtual void append(const IDomainEvent& event) = 0;
+  virtual void append(const IDomainEvent *event) = 0;
+  virtual std::vector<std::unique_ptr<IDomainEvent>> getAllEvents() = 0;
 };

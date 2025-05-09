@@ -1,10 +1,10 @@
 #pragma once
 
 #include "../order/Order.h"
-#include "Command.h"
+#include "ICommand.h"
 #include <string>
 
-class CancelOrderCommand: public Command {
+class CancelOrderCommand: public ICommand {
 public:
     CancelOrderCommand(int user_id, Order::OrderType type, std::string symbol, int quantity);
 private:

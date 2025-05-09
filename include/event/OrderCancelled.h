@@ -1,8 +1,8 @@
 #pragma once
 
-#include "DomainEvent.h"
+#include "IDomainEvent.h"
 
-class OrderCancelled: public DomainEvent {
+class OrderCancelled: public IDomainEvent {
 public:
     static constexpr std::string EVENT_TYPE = "OrderCancelled";
 

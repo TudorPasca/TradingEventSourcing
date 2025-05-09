@@ -1,10 +1,10 @@
 #include "../../include/event/FundsDebited.h"
 
 FundsDebited::FundsDebited(std::string event_id, int user_id, int quantity)
-        : DomainEvent(std::move(event_id)), user_id_(user_id), quantity_(quantity) {}
+        : IDomainEvent(std::move(event_id)), user_id_(user_id), quantity_(quantity) {}
 
 FundsDebited::FundsDebited(const std::string &json_string)
-        : DomainEvent(nlohmann::json::parse(json_string)) {
+        : IDomainEvent(nlohmann::json::parse(json_string)) {
     using json = nlohmann::json;
     try {
         json j = json::parse(json_string);

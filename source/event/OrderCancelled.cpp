@@ -2,11 +2,11 @@
 
 OrderCancelled::OrderCancelled(std::string event_id, int user_id, Order::OrderType type, std::string symbol,
                                int quantity)
-        : DomainEvent(std::move(event_id)), user_id_(user_id), type_(type), symbol_(std::move(symbol)),
+        : IDomainEvent(std::move(event_id)), user_id_(user_id), type_(type), symbol_(std::move(symbol)),
           quantity_(quantity) {}
 
 OrderCancelled::OrderCancelled(const std::string &json_string)
-        : DomainEvent(nlohmann::json::parse(json_string))  {
+        : IDomainEvent(nlohmann::json::parse(json_string))  {
     using json = nlohmann::json;
     try {
         json j = json::parse(json_string);
