@@ -4,6 +4,8 @@
 
 class OrderCancelled: public DomainEvent {
 public:
+    static constexpr std::string EVENT_TYPE = "OrderCancelled";
+
     OrderCancelled(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity);
     explicit OrderCancelled(const std::string &json_string);
 

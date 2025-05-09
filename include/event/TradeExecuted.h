@@ -4,6 +4,8 @@
 
 class TradeExecuted: public DomainEvent {
 public:
+    static constexpr std::string EVENT_TYPE = "TradeExecuted";
+
     TradeExecuted(std::string event_id, int buyer_id, int seller_id, std::string symbol, int quantity);
     explicit TradeExecuted(const std::string &json_string);
 

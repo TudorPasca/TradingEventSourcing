@@ -9,7 +9,7 @@ FundsDebited::FundsDebited(const std::string &json_string)
     try {
         json j = json::parse(json_string);
         std::string eventType_from_json = j.at("eventType").get<std::string>();
-        if (eventType_from_json != "FundsDebited") {
+        if (eventType_from_json != FundsDebited::EVENT_TYPE) {
             throw std::runtime_error("[FundsDebited] Mismatched eventType. Expected 'FundsDebited', got '" +
                                      eventType_from_json + "'.");
         }

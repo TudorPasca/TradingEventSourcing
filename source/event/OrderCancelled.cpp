@@ -11,7 +11,7 @@ OrderCancelled::OrderCancelled(const std::string &json_string)
     try {
         json j = json::parse(json_string);
         std::string eventType_from_json = j.at("eventType").get<std::string>();
-        if (eventType_from_json != "OrderCancelled") {
+        if (eventType_from_json != OrderCancelled::EVENT_TYPE) {
             throw std::runtime_error("[OrderCancelled] Mismatched eventType. Expected 'OrderCancelled', got '" +
                                      eventType_from_json + "'.");
         }

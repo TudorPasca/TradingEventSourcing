@@ -4,6 +4,8 @@
 
 class FundsCredited: public DomainEvent {
 public:
+    static constexpr std::string EVENT_TYPE = "FundsCredited";
+
     FundsCredited(std::string event_id, int user_id, int quantity);
     explicit FundsCredited(const std::string &json_string);
 

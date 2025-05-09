@@ -10,7 +10,7 @@ OrderPlaced::OrderPlaced(const std::string &json_string)
     try {
         json j = json::parse(json_string);
         std::string eventType_from_json = j.at("eventType").get<std::string>();
-        if (eventType_from_json != "OrderPlaced") {
+        if (eventType_from_json != OrderPlaced::EVENT_TYPE) {
             throw std::runtime_error("[OrderPlaced] Mismatched eventType. Expected 'OrderPlaced', got '" +
                                      eventType_from_json + "'.");
         }

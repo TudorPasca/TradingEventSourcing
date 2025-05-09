@@ -10,7 +10,7 @@ TradeExecuted::TradeExecuted(const std::string &json_string)
     try {
         json j = json::parse(json_string);
         std::string eventType_from_json = j.at("eventType").get<std::string>();
-        if (eventType_from_json != "TradeExecuted") {
+        if (eventType_from_json != TradeExecuted::EVENT_TYPE) {
             throw std::runtime_error("[OrderCancelled] Mismatched eventType. Expected 'TradeExecuted', got '" +
                                      eventType_from_json + "'.");
         }

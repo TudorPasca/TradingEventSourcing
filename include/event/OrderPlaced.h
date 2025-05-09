@@ -4,6 +4,8 @@
 
 class OrderPlaced: public DomainEvent {
 public:
+    static constexpr std::string EVENT_TYPE = "OrderPlaced";
+
     OrderPlaced(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity);
     explicit OrderPlaced(const std::string &json_string);
 
