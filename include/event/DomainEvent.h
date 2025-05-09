@@ -1,14 +1,9 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
+#include "../order/Order.h"
 #include <string>
 #include <chrono>
-
-namespace Order {
-    enum OrderType {
-        BUY, SELL
-    };
-}
 
 struct DomainEvent {
     explicit DomainEvent(std::string event_id);
