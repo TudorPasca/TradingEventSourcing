@@ -26,7 +26,7 @@ std::string FundsDebited::toJson() const {
     oss << "{";
     oss << "\"eventId\": \"" << event_id_ << "\", ";
     oss << "\"timestamp\": \"" << getNanosecondsTimestamp() << "\", ";
-    oss << "\"eventType\": \"FundsDebited\", ";
+    oss << "\"eventType\": \"" << FundsDebited::EVENT_TYPE << "\", ";
     oss << "\"userId\": " << user_id_ << ", ";
     oss << "\"quantity\": " << quantity_;
     oss << "}";

@@ -29,7 +29,7 @@ std::string OrderPlaced::toJson() const {
     oss << "{";
     oss << "\"eventId\": \"" << event_id_ << "\", ";
     oss << "\"timestamp\": \"" << getNanosecondsTimestamp() << "\", ";
-    oss << "\"eventType\": \"OrderPlaced\", ";
+    oss << "\"eventType\": \"" << OrderPlaced::EVENT_TYPE << "\", ";
     oss << "\"userId\": \"" << user_id_;
     oss << "\"orderType\": " << (type_ == Order::OrderType::BUY ? "BUY" : "SELL") << ", ";
     oss << "\"symbol\": " << symbol_;

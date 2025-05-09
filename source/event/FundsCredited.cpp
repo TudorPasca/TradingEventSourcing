@@ -27,7 +27,7 @@ std::string FundsCredited::toJson() const {
     oss << "{";
     oss << "\"eventId\": \"" << event_id_ << "\", ";
     oss << "\"timestamp\": \"" << getNanosecondsTimestamp << "\", ";
-    oss << "\"eventType\": \"FundsCredited\", ";
+    oss << "\"eventType\": \"" << FundsCredited::EVENT_TYPE << "\", ";
     oss << "\"userId\": " << user_id_ << ", ";
     oss << "\"quantity\": " << quantity_;
     oss << "}";

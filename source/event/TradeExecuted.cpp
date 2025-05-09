@@ -29,7 +29,7 @@ std::string TradeExecuted::toJson() const {
     oss << "{";
     oss << "\"eventId\": \"" << event_id_ << "\", ";
     oss << "\"timestamp\": \"" << getNanosecondsTimestamp() << "\", ";
-    oss << "\"eventType\": \"TradeExecuted\", ";
+    oss << "\"eventType\": \"" << TradeExecuted::EVENT_TYPE << "\", ";
     oss << "\"buyerId\": \"" << buyer_id_;
     oss << "\"sellerId\": \"" << seller_id_;
     oss << "\"symbol\": " << symbol_;
