@@ -5,6 +5,8 @@
 class OrderPlaced: public DomainEvent {
 public:
     OrderPlaced(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity);
+    explicit OrderPlaced(const std::string &json_string);
+
     std::string toJson() const override;
 
 private:

@@ -5,6 +5,8 @@
 class FundsCredited: public DomainEvent {
 public:
     FundsCredited(std::string event_id, int user_id, int quantity);
+    explicit FundsCredited(const std::string &json_string);
+
     std::string toJson() const override;
 
 private:

@@ -5,6 +5,8 @@
 class OrderCancelled: public DomainEvent {
 public:
     OrderCancelled(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity);
+    explicit OrderCancelled(const std::string &json_string);
+
     std::string toJson() const override;
 
 private:
