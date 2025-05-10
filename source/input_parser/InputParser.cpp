@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 #include "../../include/command/PlaceOrderCommand.h"
-#include "../../include/order/Order.h"
+#include "../../include/order/OrderType.h"
 
 std::unique_ptr<ICommand> InputParser::parseCommand(const std::string &commandLine) {
     if (commandLine.empty()) {

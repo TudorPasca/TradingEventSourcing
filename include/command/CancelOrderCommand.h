@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../order/Order.h"
+#include "../order/OrderType.h"
 #include "ICommand.h"
 #include <string>
 #include <vector>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-#include "../order/Order.h"
+#include "../order/OrderType.h"
 #include <string>
 #include <chrono>
 
