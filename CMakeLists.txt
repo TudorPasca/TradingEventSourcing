@@ -4,13 +4,20 @@ project(TradingEventSourcing)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(TradingEventSourcing main.cpp
-        source/event/DomainEvent.cpp
+        source/event/IDomainEvent.cpp
         source/event/FundsCredited.cpp
         source/event/FundsDebited.cpp
         source/event/OrderCancelled.cpp
         source/event/OrderPlaced.cpp
         source/event/TradeExecuted.cpp
-        source/logger/FileLogger.cpp)
+        source/logger/FileLogger.cpp
+        source/command/WithdrawFundsCommand.cpp
+        source/command/PlaceOrderCommand.cpp
+        source/command/CancelOrderCommand.cpp
+        source/command/DepositFundsCommand.cpp
+        include/input_parser/InputParser.h
+        source/input_parser/InputParser.cpp
+)
 
 find_package(nlohmann_json CONFIG REQUIRED)
 target_link_libraries(TradingEventSourcing PRIVATE nlohmann_json::nlohmann_json)

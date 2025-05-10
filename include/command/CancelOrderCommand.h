@@ -6,10 +6,11 @@
 
 class CancelOrderCommand: public ICommand {
 public:
-    CancelOrderCommand(int user_id, Order::OrderType type, std::string symbol, int quantity);
+    CancelOrderCommand(int user_id, Order::OrderType type, std::string symbol, int quantity, double price);
 private:
     int user_id_;
     Order::OrderType type_;
     std::string symbol_;
     int quantity_;
+    double price_;
 };

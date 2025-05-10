@@ -4,8 +4,8 @@
 
 class DepositFundsCommand: public ICommand {
 public:
-    DepositFundsCommand(int user_id, int quantity);
+    DepositFundsCommand(int user_id, double quantity);
 private:
     int user_id_;
-    int quantity_;
+    double quantity_;
 };
