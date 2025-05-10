@@ -26,6 +26,11 @@ OrderCancelled::OrderCancelled(const std::string &json_string)
     }
 }
 
+void OrderCancelled::acceptVisitor(IEventVisitor &visitor) {
+    visitor.visit(*this);
+}
+
+
 std::string OrderCancelled::toJson() const {
     std::ostringstream oss;
     oss << "{";

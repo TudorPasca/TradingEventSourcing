@@ -22,6 +22,10 @@ FundsCredited::FundsCredited(const std::string &json_string)
     }
 }
 
+void FundsCredited::acceptVisitor(IEventVisitor &visitor) {
+    visitor.visit(*this);
+}
+
 std::string FundsCredited::toJson() const {
     std::ostringstream oss;
     oss << "{";

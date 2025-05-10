@@ -26,6 +26,11 @@ OrderPlaced::OrderPlaced(const std::string &json_string)
     }
 }
 
+void OrderPlaced::acceptVisitor(IEventVisitor &visitor) {
+    visitor.visit(*this);
+}
+
+
 std::string OrderPlaced::toJson() const {
     std::ostringstream oss;
     oss << "{";

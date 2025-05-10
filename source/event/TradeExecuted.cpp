@@ -25,6 +25,11 @@ TradeExecuted::TradeExecuted(const std::string &json_string)
     }
 }
 
+void TradeExecuted::acceptVisitor(IEventVisitor &visitor) {
+    visitor.visit(*this);
+}
+
+
 std::string TradeExecuted::toJson() const {
     std::ostringstream oss;
     oss << "{";
