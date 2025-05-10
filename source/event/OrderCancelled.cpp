@@ -26,10 +26,9 @@ OrderCancelled::OrderCancelled(const std::string &json_string)
     }
 }
 
-void OrderCancelled::acceptVisitor(IEventVisitor &visitor) {
+void OrderCancelled::acceptVisitor(IEventVisitor &visitor) const {
     visitor.visit(*this);
 }
-
 
 std::string OrderCancelled::toJson() const {
     std::ostringstream oss;
@@ -45,3 +44,26 @@ std::string OrderCancelled::toJson() const {
     oss << "}";
     return oss.str();
 }
+
+int OrderCancelled::getUserId() const {
+    return user_id_;
+}
+
+std::string OrderCancelled::getSymbol() const {
+    return symbol_;
+}
+
+double OrderCancelled::getPrice() const {
+    return price_;
+}
+
+Order::OrderType OrderCancelled::getType() const {
+    return type_;
+}
+
+int OrderCancelled::getQuantity() const {
+    return quantity_;
+}
+
+
+

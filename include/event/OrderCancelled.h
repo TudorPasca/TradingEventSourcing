@@ -11,9 +11,19 @@ public:
 
     explicit OrderCancelled(const std::string &json_string);
 
-    void acceptVisitor(IEventVisitor &visitor) override;
+    void acceptVisitor(IEventVisitor &visitor) const override;
 
     std::string toJson() const override;
+
+    int getUserId() const;
+
+    int getQuantity() const;
+
+    double getPrice() const;
+
+    std::string getSymbol() const;
+
+    Order::OrderType getType() const;
 
 private:
     int user_id_;

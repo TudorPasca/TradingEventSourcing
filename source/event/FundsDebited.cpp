@@ -1,10 +1,11 @@
 #include "../../include/event/FundsDebited.h"
 
 FundsDebited::FundsDebited(std::string event_id, int user_id, double quantity)
-        : IDomainEvent(std::move(event_id)), user_id_(user_id), quantity_(quantity) {}
+    : IDomainEvent(std::move(event_id)), user_id_(user_id), quantity_(quantity) {
+}
 
 FundsDebited::FundsDebited(const std::string &json_string)
-        : IDomainEvent(nlohmann::json::parse(json_string)) {
+    : IDomainEvent(nlohmann::json::parse(json_string)) {
     using json = nlohmann::json;
     try {
         json j = json::parse(json_string);
@@ -17,14 +18,13 @@ FundsDebited::FundsDebited(const std::string &json_string)
         quantity_ = j.at("quantity").get<int>();
     } catch (const json::exception &e) {
         throw std::runtime_error(
-                "[FundsDebited] JSON parsing error: " + std::string(e.what()) + " from JSON: " + json_string);
+            "[FundsDebited] JSON parsing error: " + std::string(e.what()) + " from JSON: " + json_string);
     }
 }
 
-void FundsDebited::acceptVisitor(IEventVisitor &visitor) {
+void FundsDebited::acceptVisitor(IEventVisitor &visitor) const {
     visitor.visit(*this);
 }
-
 
 std::string FundsDebited::toJson() const {
     std::ostringstream oss;
@@ -37,3 +37,12 @@ std::string FundsDebited::toJson() const {
     oss << "}";
     return oss.str();
 }
+
+int FundsDebited::getUserId() const {
+    return user_id_;
+}
+
+double FundsDebited::getQuantity() const {
+    return quantity_;
+}
+

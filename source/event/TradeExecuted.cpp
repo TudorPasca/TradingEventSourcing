@@ -25,10 +25,9 @@ TradeExecuted::TradeExecuted(const std::string &json_string)
     }
 }
 
-void TradeExecuted::acceptVisitor(IEventVisitor &visitor) {
+void TradeExecuted::acceptVisitor(IEventVisitor &visitor) const {
     visitor.visit(*this);
 }
-
 
 std::string TradeExecuted::toJson() const {
     std::ostringstream oss;
@@ -44,3 +43,24 @@ std::string TradeExecuted::toJson() const {
     oss << "}";
     return oss.str();
 }
+
+int TradeExecuted::getSellerId() const {
+    return seller_id_;
+}
+
+int TradeExecuted::getBuyerId() const {
+    return buyer_id_;
+}
+
+std::string TradeExecuted::getSymbol() const {
+    return symbol_;
+}
+
+int TradeExecuted::getQuantity() const {
+    return quantity_;
+}
+
+double TradeExecuted::getPrice() const {
+    return price_;
+}
+

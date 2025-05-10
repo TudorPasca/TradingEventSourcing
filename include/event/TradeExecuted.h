@@ -10,9 +10,19 @@ public:
 
     explicit TradeExecuted(const std::string &json_string);
 
-    void acceptVisitor(IEventVisitor &visitor) override;
+    void acceptVisitor(IEventVisitor &visitor) const override;
 
     std::string toJson() const override;
+
+    int getBuyerId() const;
+
+    int getSellerId() const;
+
+    int getQuantity() const;
+
+    double getPrice() const;
+
+    std::string getSymbol() const;
 
 private:
     int buyer_id_;

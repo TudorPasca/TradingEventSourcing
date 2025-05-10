@@ -22,7 +22,7 @@ FundsCredited::FundsCredited(const std::string &json_string)
     }
 }
 
-void FundsCredited::acceptVisitor(IEventVisitor &visitor) {
+void FundsCredited::acceptVisitor(IEventVisitor &visitor) const {
     visitor.visit(*this);
 }
 
@@ -36,4 +36,12 @@ std::string FundsCredited::toJson() const {
     oss << "\"quantity\": " << quantity_;
     oss << "}";
     return oss.str();
+}
+
+int FundsCredited::getUserId() const {
+    return user_id_;
+}
+
+double FundsCredited::getQuantity() const {
+    return quantity_;
 }

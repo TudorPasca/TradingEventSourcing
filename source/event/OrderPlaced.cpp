@@ -2,11 +2,12 @@
 
 OrderPlaced::OrderPlaced(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity,
                          double price)
-        : IDomainEvent(std::move(event_id)), user_id_(user_id), type_(type), symbol_(std::move(symbol)),
-          quantity_(quantity), price_(price) {}
+    : IDomainEvent(std::move(event_id)), user_id_(user_id), type_(type), symbol_(std::move(symbol)),
+      quantity_(quantity), price_(price) {
+}
 
 OrderPlaced::OrderPlaced(const std::string &json_string)
-        : IDomainEvent(nlohmann::json::parse(json_string)) {
+    : IDomainEvent(nlohmann::json::parse(json_string)) {
     using json = nlohmann::json;
     try {
         json j = json::parse(json_string);
@@ -22,14 +23,13 @@ OrderPlaced::OrderPlaced(const std::string &json_string)
         price_ = j.at("price").get<double>();
     } catch (const json::exception &e) {
         throw std::runtime_error(
-                "[OrderPlaced] JSON parsing error: " + std::string(e.what()) + " from JSON: " + json_string);
+            "[OrderPlaced] JSON parsing error: " + std::string(e.what()) + " from JSON: " + json_string);
     }
 }
 
-void OrderPlaced::acceptVisitor(IEventVisitor &visitor) {
+void OrderPlaced::acceptVisitor(IEventVisitor &visitor) const {
     visitor.visit(*this);
 }
-
 
 std::string OrderPlaced::toJson() const {
     std::ostringstream oss;
@@ -44,4 +44,24 @@ std::string OrderPlaced::toJson() const {
     oss << "\"price\": " << price_;
     oss << "}";
     return oss.str();
+}
+
+int OrderPlaced::getUserId() const {
+    return user_id_;
+}
+
+Order::OrderType OrderPlaced::getType() const {
+    return type_;
+}
+
+double OrderPlaced::getPrice() const {
+    return price_;
+}
+
+int OrderPlaced::getQuantity() const {
+    return quantity_;
+}
+
+std::string OrderPlaced::getSymbol() const {
+    return symbol_;
 }
