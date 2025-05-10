@@ -1,6 +1,6 @@
 #include "../../include/event/FundsDebited.h"
 
-FundsDebited::FundsDebited(std::string event_id, int user_id, int quantity)
+FundsDebited::FundsDebited(std::string event_id, int user_id, double quantity)
         : IDomainEvent(std::move(event_id)), user_id_(user_id), quantity_(quantity) {}
 
 FundsDebited::FundsDebited(const std::string &json_string)

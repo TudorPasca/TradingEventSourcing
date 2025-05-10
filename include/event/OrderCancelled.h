@@ -6,7 +6,7 @@ class OrderCancelled: public IDomainEvent {
 public:
     static constexpr std::string EVENT_TYPE = "OrderCancelled";
 
-    OrderCancelled(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity);
+    OrderCancelled(std::string event_id, int user_id, Order::OrderType type, std::string symbol, int quantity, double price);
     explicit OrderCancelled(const std::string &json_string);
 
     std::string toJson() const override;
@@ -16,4 +16,5 @@ private:
     Order::OrderType type_;
     std::string symbol_;
     int quantity_;
+    double price_;
 };

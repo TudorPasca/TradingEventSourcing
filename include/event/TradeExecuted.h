@@ -6,7 +6,7 @@ class TradeExecuted: public IDomainEvent {
 public:
     static constexpr std::string EVENT_TYPE = "TradeExecuted";
 
-    TradeExecuted(std::string event_id, int buyer_id, int seller_id, std::string symbol, int quantity);
+    TradeExecuted(std::string event_id, int buyer_id, int seller_id, std::string symbol, int quantity, double price);
     explicit TradeExecuted(const std::string &json_string);
 
     std::string toJson() const override;
@@ -16,4 +16,5 @@ private:
     int seller_id_;
     std::string symbol_;
     int quantity_;
+    double price_;
 };

@@ -1,8 +1,8 @@
 #include "../../include/event/TradeExecuted.h"
 
-TradeExecuted::TradeExecuted(std::string event_id, int buyer_id, int seller_id, std::string symbol, int quantity)
+TradeExecuted::TradeExecuted(std::string event_id, int buyer_id, int seller_id, std::string symbol, int quantity, double price)
         : IDomainEvent(std::move(event_id)), buyer_id_(buyer_id), seller_id_(seller_id), symbol_(std::move(symbol)),
-          quantity_(quantity) {}
+          quantity_(quantity), price_(price) {}
 
 TradeExecuted::TradeExecuted(const std::string &json_string)
         : IDomainEvent(nlohmann::json::parse(json_string)) {
@@ -18,6 +18,7 @@ TradeExecuted::TradeExecuted(const std::string &json_string)
         seller_id_ = j.at("sellerId").get<int>();
         quantity_ = j.at("quantity").get<int>();
         symbol_ = j.at("symbol").get<std::string>();
+        price_ = j.at("price").get<double>();
     } catch (const json::exception &e) {
         throw std::runtime_error(
                 "[OrderCancelled] JSON parsing error: " + std::string(e.what()) + " from JSON: " + json_string);
@@ -34,6 +35,7 @@ std::string TradeExecuted::toJson() const {
     oss << "\"sellerId\": \"" << seller_id_;
     oss << "\"symbol\": " << symbol_;
     oss << "\"quantity\": " << quantity_;
+    oss << "\"price\": " << price_;
     oss << "}";
     return oss.str();
 }

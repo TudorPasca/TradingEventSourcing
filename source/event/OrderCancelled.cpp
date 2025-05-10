@@ -1,12 +1,12 @@
 #include "../../include/event/OrderCancelled.h"
 
 OrderCancelled::OrderCancelled(std::string event_id, int user_id, Order::OrderType type, std::string symbol,
-                               int quantity)
+                               int quantity, double price)
         : IDomainEvent(std::move(event_id)), user_id_(user_id), type_(type), symbol_(std::move(symbol)),
-          quantity_(quantity) {}
+          quantity_(quantity), price_(price) {}
 
 OrderCancelled::OrderCancelled(const std::string &json_string)
-        : IDomainEvent(nlohmann::json::parse(json_string))  {
+        : IDomainEvent(nlohmann::json::parse(json_string)) {
     using json = nlohmann::json;
     try {
         json j = json::parse(json_string);
@@ -19,6 +19,7 @@ OrderCancelled::OrderCancelled(const std::string &json_string)
         quantity_ = j.at("quantity").get<int>();
         type_ = (j.at("orderType").get<std::string>() == "BUY") ? Order::OrderType::BUY : Order::OrderType::SELL;
         symbol_ = j.at("symbol").get<std::string>();
+        price_ = j.at("price").get<double>();
     } catch (const json::exception &e) {
         throw std::runtime_error(
                 "[OrderCancelled] JSON parsing error: " + std::string(e.what()) + " from JSON: " + json_string);
@@ -35,6 +36,7 @@ std::string OrderCancelled::toJson() const {
     oss << "\"orderType\": " << (type_ == Order::OrderType::BUY ? "BUY" : "SELL") << ", ";
     oss << "\"symbol\": " << symbol_;
     oss << "\"quantity\": " << quantity_;
+    oss << "\"price\": " << price_;
     oss << "}";
     return oss.str();
 }

@@ -1,7 +1,7 @@
 #include "../../include/event/FundsCredited.h"
 #include <sstream>
 
-FundsCredited::FundsCredited(std::string event_id, int user_id, int quantity)
+FundsCredited::FundsCredited(std::string event_id, int user_id, double quantity)
         : IDomainEvent(std::move(event_id)), user_id_(user_id), quantity_(quantity) {}
 
 FundsCredited::FundsCredited(const std::string &json_string)
