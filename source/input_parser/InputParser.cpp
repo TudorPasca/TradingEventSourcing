@@ -23,6 +23,8 @@ std::unique_ptr<ICommand> InputParser::parseCommand(const std::string &commandLi
         command = DepositFundsCommand::fromTokens(tokens);
     } else if (commandType == WithdrawFundsCommand::COMMAND_NAME) {
         command = WithdrawFundsCommand::fromTokens(tokens);
+    } else {
+        throw std::runtime_error("[InputParser] Invalid command type");
     }
     return command;
 }
