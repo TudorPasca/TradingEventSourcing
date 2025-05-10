@@ -7,6 +7,11 @@ AccountAggregate::AccountAggregate(int user_id)
     balance_ = 0.0;
 }
 
+double AccountAggregate::getBalance() const {
+    return balance_;
+}
+
+
 void AccountAggregate::addBalance(double sum) {
     balance_ += sum;
 }
