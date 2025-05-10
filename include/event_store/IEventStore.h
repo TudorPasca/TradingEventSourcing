@@ -4,8 +4,8 @@
 #include <string>
 #include <memory>
 
-struct ILogger {
-  virtual ~ILogger() = default;
+struct IEventStore {
+  virtual ~IEventStore() = default;
   virtual void append(const std::string& message) = 0;
   virtual void append(const IDomainEvent& event) = 0;
   virtual void append(const IDomainEvent *event) = 0;

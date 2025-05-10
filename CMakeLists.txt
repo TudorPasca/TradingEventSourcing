@@ -10,12 +10,11 @@ add_executable(TradingEventSourcing main.cpp
         source/event/OrderCancelled.cpp
         source/event/OrderPlaced.cpp
         source/event/TradeExecuted.cpp
-        source/logger/FileLogger.cpp
+        source/event_store/FileEventStore.cpp
         source/command/WithdrawFundsCommand.cpp
         source/command/PlaceOrderCommand.cpp
         source/command/CancelOrderCommand.cpp
         source/command/DepositFundsCommand.cpp
-        include/input_parser/InputParser.h
         source/input_parser/InputParser.cpp
 )
 

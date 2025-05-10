@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ILogger.h"
+#include "IEventStore.h"
 #include "../event/IDomainEvent.h"
 #include <fstream>
 
-class FileLogger: public ILogger {
+class FileEventStore: public IEventStore {
 public:
-    explicit FileLogger(std::string filename);
+    explicit FileEventStore(std::string filename);
     void append(const std::string& message) override;
     void append(const IDomainEvent& event) override;
     void append(const IDomainEvent *event) override;
