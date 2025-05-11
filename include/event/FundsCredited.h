@@ -6,7 +6,7 @@ class FundsCredited : public IDomainEvent {
 public:
     static constexpr std::string EVENT_TYPE = "FundsCredited";
 
-    FundsCredited(std::string event_id, int user_id, double quantity);
+    FundsCredited(int event_id, int user_id, double quantity);
 
     explicit FundsCredited(const std::string &json_string);
 
