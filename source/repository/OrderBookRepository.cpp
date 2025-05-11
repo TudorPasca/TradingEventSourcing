@@ -5,6 +5,9 @@
 #include "../../include/order/BuyOrder.h"
 #include "../../include/order/SellOrder.h"
 
+OrderBookRepository::OrderBookRepository()
+    : orderBook(std::make_shared<OrderBookAggregate>()) {}
+
 void OrderBookRepository::processEvent(const IDomainEvent &event) {
     event.acceptVisitor(*this);
 }
@@ -16,9 +19,9 @@ void OrderBookRepository::visit(const OrderPlaced &event) {
     double price = event.getPrice();
     Order::OrderType type = event.getType();
     if (type == Order::OrderType::BUY)
-        orderBook.placeOrder(Order::BuyOrder(userId, symbol, quantity, price));
+        orderBook->placeOrder(Order::BuyOrder(userId, symbol, quantity, price));
     else if (type == Order::OrderType::SELL)
-        orderBook.placeOrder(Order::SellOrder(userId, symbol, quantity, price));
+        orderBook->placeOrder(Order::SellOrder(userId, symbol, quantity, price));
     else
         throw std::runtime_error("[OrderBookRepository] Invalid order type");
 }
@@ -30,9 +33,9 @@ void OrderBookRepository::visit(const OrderCancelled &event) {
     double price = event.getPrice();
     Order::OrderType type = event.getType();
     if (type == Order::OrderType::BUY)
-        orderBook.cancelOrder(Order::BuyOrder(userId, symbol, quantity, price));
+        orderBook->cancelOrder(Order::BuyOrder(userId, symbol, quantity, price));
     else if (type == Order::OrderType::SELL)
-        orderBook.cancelOrder(Order::SellOrder(userId, symbol, quantity, price));
+        orderBook->cancelOrder(Order::SellOrder(userId, symbol, quantity, price));
     else
         throw std::runtime_error("[OrderBookRepository] Invalid order type");
 }
@@ -45,11 +48,16 @@ void OrderBookRepository::visit(const TradeExecuted &event) {
     double price = event.getPrice();
     Order::BuyOrder buyOrder(buyerId, symbol, quantity, price);
     Order::SellOrder sellOrder(sellerId, symbol, quantity, price);
-    orderBook.cancelOrder(buyOrder);
-    orderBook.cancelOrder(sellOrder);
+    orderBook->cancelOrder(buyOrder);
+    orderBook->cancelOrder(sellOrder);
 }
 
 void OrderBookRepository::visit(const FundsCredited &event) {}
 
 void OrderBookRepository::visit(const FundsDebited &event) {}
+
+std::shared_ptr<OrderBookAggregate> OrderBookRepository::getAggregate() {
+    return orderBook;
+}
+
 

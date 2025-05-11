@@ -5,6 +5,8 @@
 
 class OrderBookRepository : public IRepository, public IEventVisitor {
 public:
+    OrderBookRepository();
+
     void processEvent(const IDomainEvent &event) override;
 
     void visit(const FundsCredited &event) override;
@@ -17,6 +19,7 @@ public:
 
     void visit(const TradeExecuted &event) override;
 
+    std::shared_ptr<OrderBookAggregate> getAggregate();
 private:
-    OrderBookAggregate orderBook;
+    std::shared_ptr<OrderBookAggregate> orderBook;
 };
