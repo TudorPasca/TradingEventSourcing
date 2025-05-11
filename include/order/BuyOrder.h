@@ -6,6 +6,6 @@ namespace Order {
     public:
         BuyOrder(int user_id, std::string symbol, int quantity, double price);
         OrderType getType() const override;
-        bool operator<(const IActiveOrder& other) const override;
+        bool operator<(const BuyOrder& other) const;
     };
 }

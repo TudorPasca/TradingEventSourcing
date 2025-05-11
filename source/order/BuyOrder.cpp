@@ -8,6 +8,15 @@ Order::OrderType Order::BuyOrder::getType() const {
     return BUY;
 }
 
-bool Order::BuyOrder::operator<(const IActiveOrder &other) const {
-    return price_ < other.getPrice();
+bool Order::BuyOrder::operator<(const BuyOrder &other) const {
+    if (this->getPrice() != other.getPrice()) {
+        return this->getPrice() < other.getPrice();
+    }
+    if (this->getQuantity() != other.getQuantity()) {
+        return this->getQuantity() < other.getQuantity();
+    }
+    if (this->getSymbol() != other.getSymbol()) {
+        return this->getSymbol() < other.getSymbol();
+    }
+    return this->getUserId() < other.getUserId();
 }
