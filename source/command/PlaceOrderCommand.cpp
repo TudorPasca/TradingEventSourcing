@@ -25,3 +25,23 @@ std::unique_ptr<PlaceOrderCommand> PlaceOrderCommand::fromTokens(const std::vect
     }
     return std::make_unique<PlaceOrderCommand>(userId, type, symbol, quantity, price);
 }
+
+int PlaceOrderCommand::getUserId() const {
+    return user_id_;
+}
+
+int PlaceOrderCommand::getQuantity() const {
+    return quantity_;
+}
+
+double PlaceOrderCommand::getPrice() const {
+    return price_;
+}
+
+std::string PlaceOrderCommand::getSymbol() const {
+    return symbol_;
+}
+
+Order::OrderType PlaceOrderCommand::getType() const {
+    return type_;
+}

@@ -16,6 +16,11 @@ public:
 
     static std::unique_ptr<CancelOrderCommand> fromTokens(const std::vector<std::string> &tokens);
 
+    int getUserId() const;
+    Order::OrderType getType() const;
+    std::string getSymbol() const;
+    int getQuantity() const;
+    double getPrice() const;
 private:
     int user_id_;
     Order::OrderType type_;

@@ -14,6 +14,8 @@ public:
 
     static std::unique_ptr<WithdrawFundsCommand> fromTokens(const std::vector<std::string> &tokens);
 
+    int getUserId() const;
+    double getQuantity() const;
 private:
     int user_id_;
     double quantity_;

@@ -15,3 +15,11 @@ std::unique_ptr<WithdrawFundsCommand> WithdrawFundsCommand::fromTokens(const std
     }
     return std::make_unique<WithdrawFundsCommand>(userId, quantity);
 }
+
+int WithdrawFundsCommand::getUserId() const {
+    return user_id_;
+}
+
+double WithdrawFundsCommand::getQuantity() const {
+    return quantity_;
+}

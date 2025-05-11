@@ -15,3 +15,11 @@ std::unique_ptr<DepositFundsCommand> DepositFundsCommand::fromTokens(const std::
     }
     return std::make_unique<DepositFundsCommand>(userId, quantity);
 }
+
+int DepositFundsCommand::getUserId() const {
+    return user_id_;
+}
+
+double DepositFundsCommand::getQuantity() const {
+    return quantity_;
+}

@@ -26,3 +26,23 @@ std::unique_ptr<CancelOrderCommand> CancelOrderCommand::fromTokens(const std::ve
     }
     return std::make_unique<CancelOrderCommand>(userId, type, symbol, quantity, price);
 }
+
+int CancelOrderCommand::getUserId() const {
+    return user_id_;
+}
+
+int CancelOrderCommand::getQuantity() const {
+    return quantity_;
+}
+
+std::string CancelOrderCommand::getSymbol() const {
+    return symbol_;
+}
+
+Order::OrderType CancelOrderCommand::getType() const {
+    return type_;
+}
+
+double CancelOrderCommand::getPrice() const {
+    return price_;
+}
