@@ -11,37 +11,20 @@
 #include <unordered_map>
 #include <unordered_set>
 
-
-inline const auto buyOrderComparator = [](const std::shared_ptr<Order::IActiveOrder> &a,
-                                          const std::shared_ptr<Order::IActiveOrder> &b) -> bool {
-    if (a == nullptr || b == nullptr)
-        return (a == nullptr) && (b != nullptr);
-    return a->getPrice() > b->getPrice();
-};
-
-inline const auto sellOrderComparator = [](const std::shared_ptr<Order::IActiveOrder> &a,
-                                           const std::shared_ptr<Order::IActiveOrder> &b) -> bool {
-    if (a == nullptr || b == nullptr)
-        return (a == nullptr) && (b != nullptr);
-    return a->getPrice() < b->getPrice();
-};
-
 class OrderBookAggregate : IAggregate {
 public:
     OrderBookAggregate();
 
-    void placeOrder(const std::shared_ptr<Order::IActiveOrder> &order);
-
-    void cancelOrder(const std::shared_ptr<Order::IActiveOrder> &order);
-
-    std::shared_ptr<Order::IActiveOrder> getTopBuyOrder(const std::string &symbol) const;
-
-    std::shared_ptr<Order::IActiveOrder> getTopSellOrder(const std::string &symbol) const;
+    void placeOrder(const Order::BuyOrder &order);
+    void placeOrder(const Order::SellOrder &order);
+    void cancelOrder(const Order::BuyOrder &order);
+    void cancelOrder(const Order::SellOrder &order);
+    Order::BuyOrder getTopBuyOrder(const std::string &symbol) const;
+    Order::SellOrder getTopSellOrder(const std::string &symbol) const;
 
 private:
-    using buyOrderSet = std::set<std::shared_ptr<Order::IActiveOrder>, decltype(buyOrderComparator)>;
-    using sellOrderSet = std::set<std::shared_ptr<Order::IActiveOrder>, decltype(sellOrderComparator)>;
-    std::unordered_set<std::shared_ptr<Order::IActiveOrder> > all_orders_;
+    using buyOrderSet = std::set<Order::BuyOrder>;
+    using sellOrderSet = std::set<Order::SellOrder>;
     std::unordered_map<std::string, buyOrderSet> buy_orders_by_symbol_;
     std::unordered_map<std::string, sellOrderSet> sell_orders_by_symbol_;
 };
