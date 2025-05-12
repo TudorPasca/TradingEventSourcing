@@ -34,12 +34,12 @@ std::string OrderCancelled::toJson() const {
     std::ostringstream oss;
     oss << "{";
     oss << "\"eventId\": \"" << event_id_ << "\", ";
-    oss << "\"timestamp\": \"" << getNanosecondsTimestamp() << "\", ";
+    oss << "\"timestamp\": " << getNanosecondsTimestamp() << ", ";
     oss << "\"eventType\": \"" << OrderCancelled::EVENT_TYPE << "\", ";
-    oss << "\"userId\": \"" << user_id_;
-    oss << "\"orderType\": " << (type_ == Order::OrderType::BUY ? "BUY" : "SELL") << ", ";
-    oss << "\"symbol\": " << symbol_;
-    oss << "\"quantity\": " << quantity_;
+    oss << "\"userId\": " << user_id_ << ", ";
+    oss << "\"orderType\": \"" << (type_ == Order::OrderType::BUY ? "BUY" : "SELL") << "\", ";
+    oss << "\"symbol\": \"" << symbol_ << "\", ";
+    oss << "\"quantity\": " << quantity_ << ", ";
     oss << "\"price\": " << price_;
     oss << "}";
     return oss.str();

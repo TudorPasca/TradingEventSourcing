@@ -33,12 +33,12 @@ std::string TradeExecuted::toJson() const {
     std::ostringstream oss;
     oss << "{";
     oss << "\"eventId\": \"" << event_id_ << "\", ";
-    oss << "\"timestamp\": \"" << getNanosecondsTimestamp() << "\", ";
+    oss << "\"timestamp\": " << getNanosecondsTimestamp() << ", ";
     oss << "\"eventType\": \"" << TradeExecuted::EVENT_TYPE << "\", ";
-    oss << "\"buyerId\": \"" << buyer_id_;
-    oss << "\"sellerId\": \"" << seller_id_;
-    oss << "\"symbol\": " << symbol_;
-    oss << "\"quantity\": " << quantity_;
+    oss << "\"buyerId\": " << buyer_id_ << ", ";
+    oss << "\"sellerId\": " << seller_id_ << ", ";
+    oss << "\"symbol\": \"" << symbol_ << "\", ";
+    oss << "\"quantity\": " << quantity_ << ", ";
     oss << "\"price\": " << price_;
     oss << "}";
     return oss.str();
