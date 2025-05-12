@@ -1,25 +1,57 @@
 #include <iostream>
+#include <memory>
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+#include "include/command_dispatcher/CommandDispatcher.h"
+#include "include/command_handler/CancelOrderCommandHandler.h"
+#include "include/command_handler/DepositFundsCommandHandler.h"
+#include "include/command_handler/PlaceOrderCommandHandler.h"
+#include "include/command_handler/WithdrawFundsCommandHandler.h"
+#include "include/event/IDomainEvent.h"
+#include "include/event/FundsCredited.h"
+#include "include/event_store/FileEventStore.h"
+#include "include/input_parser/InputParser.h"
+#include "include/repository/AccountRepository.h"
+#include "include/repository/OrderBookRepository.h"
+
 int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the
-    // <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
+    ///Rehydration
+    auto eventStore = std::make_shared<FileEventStore>("event_log.txt");
+    auto orderBookRepository = std::make_shared<OrderBookRepository>();
+    auto accountRepository = std::make_shared<AccountRepository>();
+    std::vector<std::unique_ptr<IDomainEvent>> events = eventStore->getAllEvents();
+    orderBookRepository->rehydrate(events);
+    accountRepository->rehydrate(events);
 
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code.
-        // We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/>
-        // breakpoint for you, but you can always add more by pressing
-        // <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+    accountRepository->displayState(std::cout);
+    orderBookRepository->displayState(std::cout);
+
+    ///Initialization
+    InputParser parser;
+
+    auto cancelOrderCommandHandler = std::make_shared<CancelOrderCommandHandler>(accountRepository, orderBookRepository);
+    auto placeOrderCommandHandler = std::make_shared<PlaceOrderCommandHandler>(accountRepository, orderBookRepository);
+    auto depositFundsCommandHandler = std::make_shared<DepositFundsCommandHandler>(accountRepository, orderBookRepository);
+    auto withdrawFundsCommandHandler = std::make_shared<WithdrawFundsCommandHandler>(accountRepository, orderBookRepository);
+
+    CommandDispatcher commandDispatcher(eventStore);
+    commandDispatcher.registerHandler<CancelOrderCommand>(cancelOrderCommandHandler);
+    commandDispatcher.registerHandler<PlaceOrderCommand>(placeOrderCommandHandler);
+    commandDispatcher.registerHandler<DepositFundsCommand>(depositFundsCommandHandler);
+    commandDispatcher.registerHandler<WithdrawFundsCommand>(withdrawFundsCommandHandler);
+
+    ///Application loop
+    std::string line;
+    while (std::getline(std::cin, line)) {
+        if (line == "stop")
+            break;
+        try {
+            std::unique_ptr<ICommand> command = parser.parseCommand(line);
+            commandDispatcher.dispatch(*command);
+            std::cout << "[Main] Command executed successfully" << std::endl;
+        } catch (std::exception& e) {
+            std::cerr << "[Main] Command failed: " << e.what() << std::endl;
+        }
     }
 
     return 0;
 }
-
-// TIP See CLion help at <a
-// href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
-//  Also, you can try interactive lessons for CLion by selecting
-//  'Help | Learn IDE Features' from the main menu.
