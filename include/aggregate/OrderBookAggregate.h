@@ -23,7 +23,7 @@ public:
     std::vector<std::shared_ptr<IDomainEvent>> cancelOrder(const Order::SellOrder &order);
     Order::BuyOrder getTopBuyOrder(const std::string &symbol) const;
     Order::SellOrder getTopSellOrder(const std::string &symbol) const;
-
+    std::vector<std::unique_ptr<Order::IActiveOrder>> getAllOrders() const;
 private:
     using buyOrderSet = std::set<Order::BuyOrder>;
     using sellOrderSet = std::set<Order::SellOrder>;

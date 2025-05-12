@@ -4,6 +4,7 @@
 #include "../../include/event/TradeExecuted.h"
 #include "../../include/order/BuyOrder.h"
 #include "../../include/order/SellOrder.h"
+#include "../../include/aggregate/OrderBookAggregate.h"
 
 OrderBookRepository::OrderBookRepository()
     : orderBook(std::make_shared<OrderBookAggregate>()) {}
@@ -58,6 +59,15 @@ void OrderBookRepository::visit(const FundsDebited &event) {}
 
 std::shared_ptr<OrderBookAggregate> OrderBookRepository::getAggregate() {
     return orderBook;
+}
+
+void OrderBookRepository::displayState(std::ostream &stream) const {
+    stream << "[OrderBookRepository] STATE:" << std::endl;
+    std::vector<std::unique_ptr<Order::IActiveOrder>> orders = orderBook->getAllOrders();
+    for (const auto &it: orders) {
+        stream << "( " << it->getUserId() << ", " << it->getType() << ", " << it->getSymbol() << ", " << it->getQuantity() << ", " << it->getPrice() << " )" << std::endl;
+    }
+    stream << "-------------" << std::endl;
 }
 
 

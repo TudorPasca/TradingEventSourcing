@@ -20,6 +20,8 @@ public:
     void visit(const TradeExecuted &event) override;
 
     std::shared_ptr<OrderBookAggregate> getAggregate();
+
+    void displayState(std::ostream &stream) const override;
 private:
     std::shared_ptr<OrderBookAggregate> orderBook;
 };
