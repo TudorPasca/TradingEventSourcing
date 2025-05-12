@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+#include <memory>
+#include "../event/IDomainEvent.h"
+
 struct ICommand;
 
 struct IGenericCommandHandler {

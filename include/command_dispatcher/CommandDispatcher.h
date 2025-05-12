@@ -4,8 +4,7 @@
 
 #include "../event_store/IEventStore.h"
 #include "../command_handler/ICommandHandler.h"
-
-struct ICommand;
+#include "../command/ICommand.h"
 
 class CommandDispatcher {
 public:

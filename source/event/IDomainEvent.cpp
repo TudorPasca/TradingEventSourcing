@@ -1,4 +1,5 @@
 #include "../../include/event/IDomainEvent.h"
+#include <string>
 
 IDomainEvent::IDomainEvent(std::string event_id)
         : event_id_(std::move(event_id)), timestamp_(std::chrono::system_clock::now()) {}

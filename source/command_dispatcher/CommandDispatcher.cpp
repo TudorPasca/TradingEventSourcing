@@ -5,7 +5,8 @@
 #include <iostream>
 
 CommandDispatcher::CommandDispatcher(std::shared_ptr<IEventStore> event_store)
-    : event_store_(std::move(event_store)) {}
+    : event_store_(std::move(event_store)) {
+}
 
 void CommandDispatcher::dispatch(const ICommand &command) {
     std::type_index commandTypeIndex(typeid(command));
@@ -13,15 +14,10 @@ void CommandDispatcher::dispatch(const ICommand &command) {
     if (it == handlers_.end()) {
         throw std::runtime_error("[CommandDispatcher] Unknown command type");
     }
-    try {
-        std::vector<std::shared_ptr<IDomainEvent>> events = it->second->handleCommand(command);
-        for (const auto &event : events) {
-            if (event != nullptr) {
-                event_store_->append(*event);
-            }
+    std::vector<std::shared_ptr<IDomainEvent> > events = it->second->handleCommand(command);
+    for (const auto &event: events) {
+        if (event != nullptr) {
+            event_store_->append(*event);
         }
-    } catch (const std::exception &e) {
-        std::cerr << "[CommandDispatcher] Exception occured for command: " << e.what() << std::endl;
     }
 }
-

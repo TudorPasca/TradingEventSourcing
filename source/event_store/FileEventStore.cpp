@@ -8,7 +8,7 @@
 
 FileEventStore::FileEventStore(std::string filename)
         : filename_(std::move(filename)) {
-    out_fs_.open(filename_);
+    out_fs_.open(filename_, std::ios_base::out | std::ios_base::app);
     if (!out_fs_.is_open()) {
         throw std::runtime_error("[FileLogger] Failed to open log file for WRITING: " + filename_);
     }

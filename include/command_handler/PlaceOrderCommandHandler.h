@@ -2,8 +2,7 @@
 #include "ICommandHandler.h"
 #include "../repository/AccountRepository.h"
 #include "../repository/OrderBookRepository.h"
-
-class PlaceOrderCommand;
+#include "../command/PlaceOrderCommand.h"
 
 struct PlaceOrderCommandHandler : public ICommandHandler<PlaceOrderCommand> {
 public:

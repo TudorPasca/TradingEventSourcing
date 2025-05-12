@@ -18,6 +18,6 @@ CancelOrderCommandHandler::handleInternal(const CancelOrderCommand &command) {
         return orderBook->cancelOrder(Order::BuyOrder(command.getUserId(), command.getSymbol(), command.getQuantity(),
                                                       command.getPrice()));
     }
-    return orderBook->placeOrder(Order::SellOrder(command.getUserId(), command.getSymbol(), command.getQuantity(),
+    return orderBook->cancelOrder(Order::SellOrder(command.getUserId(), command.getSymbol(), command.getQuantity(),
                                                   command.getPrice()));
 }
