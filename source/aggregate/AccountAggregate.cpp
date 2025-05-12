@@ -17,7 +17,7 @@ double AccountAggregate::getBalance() const {
 
 std::vector<std::shared_ptr<IDomainEvent>> AccountAggregate::addBalance(double sum) {
     balance_ += sum;
-    auto event = std::make_shared<FundsCredited>(1, user_id_, sum);
+    auto event = std::make_shared<FundsCredited>("test", user_id_, sum);
     return {event};
 }
 
@@ -27,6 +27,6 @@ std::vector<std::shared_ptr<IDomainEvent>> AccountAggregate::subtractBalance(dou
             "[AccountAggregate] Failed to withdraw. Insufficient balance in account of user " + user_id_);
     }
     balance_ -= sum;
-    auto event = std::make_shared<FundsDebited>("1", user_id_, sum);
+    auto event = std::make_shared<FundsDebited>("test", user_id_, sum);
     return {event};
 }
