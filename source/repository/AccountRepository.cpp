@@ -1,5 +1,5 @@
 #include "../../include/repository/AccountRepository.h"
-
+#include "../../include/aggregate/AccountAggregate.h"
 #include "../../include/event/FundsCredited.h"
 #include "../../include/event/FundsDebited.h"
 #include "../../include/event/TradeExecuted.h"
@@ -50,6 +50,13 @@ std::shared_ptr<AccountAggregate> AccountRepository::getAggregateByClientId(cons
     return accounts[clientId];
 }
 
+void AccountRepository::displayState(std::ostream &stream) const {
+    stream << "[AccountRepository] STATE: " << std::endl;
+    for (const auto &it: accounts) {
+        stream << "Client " << it.first << ": " << it.second->getBalance() << std::endl;
+    }
+    stream << "----" << std::endl;
+}
 
 
 

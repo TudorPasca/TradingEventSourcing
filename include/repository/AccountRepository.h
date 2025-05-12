@@ -18,6 +18,8 @@ public:
     void visit(const TradeExecuted &event) override;
 
     std::shared_ptr<AccountAggregate> getAggregateByClientId(const int& user_id);
+
+    void displayState(std::ostream &stream) const override;
 private:
     std::unordered_map<int, std::shared_ptr<AccountAggregate>> accounts;
 };
